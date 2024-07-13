@@ -2,7 +2,7 @@ import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
 import { UserComponent } from './user/user.component';
-import { TaskComponent } from './task/task.component';
+import { TaskComponent } from './task/tasks.component';
 import{ DUMMY_USERS } from './dummy-users';
 import { User } from './user.model';
 import { CommonModule } from '@angular/common';
@@ -20,7 +20,15 @@ export class AppComponent {
 
   userSelected=signal<User|undefined>(undefined);
 
+  showTaskDialog = false;
+
   selectedUser(user: User){
     this.userSelected.set(user);
+    this.showTaskDialog=false;
   }
+
+  showTaskForm(status:boolean){
+    this.showTaskDialog=status;
+  }
+
 }

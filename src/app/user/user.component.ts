@@ -1,4 +1,4 @@
-import { Component, Input, input, computed, Output, EventEmitter, output} from '@angular/core';
+import { Component, Input, input, computed, Output, EventEmitter, output, InputSignal} from '@angular/core';
 import {User} from "../user.model"
 
 
@@ -13,6 +13,7 @@ export class UserComponent {
   
   @Input({required: true}) user!: User;
   @Output() select=new EventEmitter<User>();
+
   // @Input({required: true}) name!: string;
   //select = output<User>();
 
@@ -20,6 +21,8 @@ export class UserComponent {
   // avatar=input.required<string>();
   // name=input.required<string>();
   // avatarURL=computed(()=>'assets/users/'+this.avatar());
+
+  selected: InputSignal<boolean>=input(false);
 
 
   get avatarURL(){

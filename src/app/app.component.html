@@ -2,9 +2,14 @@
 
 <main>
   <ul id="users">
-    <li *ngFor="let user of users">
+    <!-- <li *ngFor="let user of users">
       <app-user [user]="user" (select)="selectedUser($event)"/>
-    </li>
+    </li> -->
+    @for (user of users; track user.id) {
+      <li>
+        <app-user [user]="user" [selected]="user.id===userSelected()?.id" (select)="selectedUser($event)"/>
+      </li>
+    }
   </ul>
-  <app-task [selectedUser]="userSelected()"/>
+  <app-task [selectedUser]="userSelected()" (newTaskEvent)="showTaskForm($event)" [showNewTask]="showTaskDialog"/>
 </main>
