@@ -5,6 +5,7 @@ import { TaskItemComponent } from "./task-item/task-item.component";
 import { TaskModel } from "./model/task.model"
 import { DUMMY_TASKS } from '../dummy-tasks';
 import { NewTaskComponent } from "../task/new-task/new-task.component";
+import { TasksService } from './tasks.service';
 
 @Component({
   selector: 'app-task',
@@ -14,21 +15,24 @@ import { NewTaskComponent } from "../task/new-task/new-task.component";
   styleUrl: './tasks.component.css'
 })
 export class TaskComponent {
+  constructor(private taskService: TasksService){
+  }
+
   @Input({required: true}) selectedUser: User|undefined;
-  tasks =DUMMY_TASKS;
 
   @Output() newTaskEvent = new EventEmitter<boolean>();
   @Input() showNewTask=false;
 
   get selecteduserTasks(){
-    let selectedTasks = this.tasks.filter((task) => {return (task.userId === this.selectedUser?.id)});
-    console.log("userID == "+this.selectedUser?.id);
-    return selectedTasks;
+    return this.taskService.getUserTasks(this.selectedUser?.id!);
   }
-  deleteTask(taskID:string){
-    this.tasks = this.tasks.filter(task => task.id!==taskID)
-  }
+  
   onStartNewTask(){
     this.newTaskEvent.emit(true);
   }
+
+  disableShowTask(){
+    this.showNewTask=false;
+  }
+
 }

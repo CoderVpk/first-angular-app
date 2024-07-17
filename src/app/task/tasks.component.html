@@ -1,24 +1,24 @@
 @if(showNewTask){
-    <app-new-task [taskUserId]="selectedUser?.id"></app-new-task>
+    <app-new-task [taskUserId]="selectedUser?.id" (close)="disableShowTask()"></app-new-task>
 }
 <section id="tasks">
     <header>
         <!-- <p *ngIf="selectedUser">user name : {{selectedUser.name}}</p> -->
         @if (selectedUser) {
             <h2>user name : {{selectedUser.name}}</h2>
+            <menu>
+                <button (click)="onStartNewTask()">
+                    Add Task
+                </button>
+            </menu>
         }@else {
             <p>Please select a user.....</p>
         }
-        <menu>
-            <button (click)="onStartNewTask()">
-                Add Task
-            </button>
-        </menu>
     </header>
     <ul>
         @for (taskItem of selecteduserTasks; track taskItem.id) {
             <li>
-                <app-task-item [task]="taskItem" (complete)="deleteTask($event)"></app-task-item>
+                <app-task-item [task]="taskItem"></app-task-item>
             </li>
         }
     </ul>
